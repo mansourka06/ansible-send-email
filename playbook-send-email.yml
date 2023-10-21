@@ -1,0 +1,22 @@
+---
+- name: "Ansible mail notification"
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    vars/email_secrets.yml
+  vars:
+    email_server: 'smtp.gmail.com'
+    email_server_port: '587'
+    email_from_address: 'ansible@lab.local (Ansible Automation)'
+    email_to_address:
+          - 'email-user@gmail.com'
+    #email_cc_address:
+    #      - 'email-user_@gmail.com'
+    email_replyto_address: 'no-reply@lab.local'
+    email_report_body: "This is a demo email. Check demo attachment."
+    email_subject: "Ansible playbook Email Notification - Demo"
+    #report_file_name: ./demo-file.txt
+  tasks:
+    - name: Email notification
+      include_role:
+        name: ansible-send-email
